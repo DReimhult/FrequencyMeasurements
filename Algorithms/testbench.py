@@ -46,10 +46,6 @@ ax.set_xlabel('Time (s)')
 
 sig = read_ref_signal_from_xls('Reference signal for testing.xlsx')
 
-ph_sig = fm.dq_phase_angle(sig, downsample = sig.samples_per_period)
-phi_sep,psi_sep = fm.phase_separation(ph_sig, 0.05, downsample = 1)
-freq_sep = Signal(phi_sep.time[1:], [sig.nom_freq+phi_sep.sample_rate*((a+np.pi) % (2*np.pi) - np.pi) / (2*np.pi) for a in np.diff(phi_sep.values)], phi_sep.sample_rate)
-
 f_bergeron = fm.bergeron_derivate(sig, startup_periods = 10)
 f_synchrophasor = fm.synchrophasor_frequency(sig)
 f_zerocrossing= fm.filtered_zerocrossing(sig, startup_periods = 10)
